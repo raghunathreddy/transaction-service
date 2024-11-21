@@ -40,10 +40,10 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader(); // Allow any HTTP headers
     });
 });
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.Listen(IPAddress.Any, 8080); // Bind to port 8080
-});
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.Listen(IPAddress.Any, 8080); // Bind to port 8080
+//});
 var app = builder.Build();
 app.UseCors(); ;
 if(app.Environment.IsDevelopment())
