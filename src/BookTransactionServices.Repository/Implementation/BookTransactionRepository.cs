@@ -1,6 +1,8 @@
 ﻿using BookTransactionServices.Model;
 using BookTransactionServices.Repository.Interface;
 using Dapper;
+using MongoDB.Driver.Core.Configuration;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,16 +24,16 @@ namespace BookTransactionServices.Repository.Implementation
         {
             using (IDbConnection connection = _pgsqlConnectionFactory.GetConnection)
             {
-                string insertQuery = @"INSERT INTO Books ([book_id],[book_Name],[transaction_date],[transaction_status]) VALUES (@book_Id,@book_Name,@transaction_date,@transaction_status)";
+                string insertQuery = @"INSERT INTO booktransaction (book_transactionid,book_id,book_Name,transaction_date,transaction_status) VALUES (@book_transactionid,@book_Id,@book_Name,@transaction_date,@transaction_status)";
                 _pgsqlConnectionFactory.OpenConnection(connection);
                 try
                 {
                     var results = await connection.ExecuteAsync(insertQuery, new
                     {
-                       // book_transactionid = bookTransaction.Book_transactionid,
+                        book_transactionid = bookTransaction.Book_transactionid,
                         book_Id = bookTransaction.Book_Id,
                         book_Name = bookTransaction.Book_Name,
-                        transaction_date = bookTransaction.transaction_date,
+                        transaction_date = DateTime.Now,
                         transaction_status = bookTransaction.transaction_status
                     });
                 }
@@ -40,6 +42,7 @@ namespace BookTransactionServices.Repository.Implementation
                     Console.WriteLine(ex.Message.ToString() + "\n" + ex.InnerException.ToString());
                     throw new InvalidOperationException(ex.Message);
                 }
+
             }
         }
 
@@ -64,6 +67,6 @@ namespace BookTransactionServices.Repository.Implementation
             }
         }
 
-       
+
     }
 }

@@ -24,12 +24,7 @@ namespace BookTransactionServices.Api.Controllers
             //return new string[] { "value1", "value2" };
         }
 
-        // GET api/<BookTransactionController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+       
 
         // POST api/<BookTransactionController>
         [HttpPost]
@@ -38,16 +33,5 @@ namespace BookTransactionServices.Api.Controllers
              _bookTransactionService.AddBookTransaction(BookTransaction);
         }
 
-        // PUT api/<BookTransactionController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<BookTransactionController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

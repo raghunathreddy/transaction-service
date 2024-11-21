@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Service.Implementation
@@ -25,11 +26,14 @@ namespace Service.Implementation
 
         public void AddBookTransaction(DtoBookTransaction bookTransaction)
         {
+
             var transactionhistory = _mapper.Map<BookTransaction>(bookTransaction);
+           
             _bookTransactionReposiroty.AddBookTransaction(transactionhistory);//.Result;
            
         }
 
+        
         public List<DtoBookTransaction> GetAllTransaction()
         {
             var result = _bookTransactionReposiroty.GetAllBookTransaction().Result;
